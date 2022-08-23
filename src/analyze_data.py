@@ -15,7 +15,6 @@ def extract_data():
 
 def read_data(heart_data: str = 'data\heart.csv'):
     heart_df = pd.read_csv(heart_data)
-
     
 
     print(heart_df.head()) #show 1st 5 cells of dataframe
