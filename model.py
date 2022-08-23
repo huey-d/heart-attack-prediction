@@ -143,4 +143,4 @@ def classify(X_train: np.ndarray,
 
 if __name__== '__main__':
     X_train, y_train, X_test, y_test = read_data()
-    # classify(X_train, y_train, X_test, y_test)
+    classify(X_train, y_train, X_test, y_test)
