@@ -1,96 +1,73 @@
 import pandas as pd
 import plotly.express
 
-    
-
 def read_data(heart_data: str = 'data\datasets\heart.csv'):
     heart_df = pd.read_csv(heart_data)
     
-
-    print(heart_df.head()) #show 1st 5 cells of dataframe
-
-    print(heart_df.info()) # show dataset information
-
-    print(heart_df.isna().sum()) #show sum of missing values in columns
-
-    print(heart_df.isna().sum().max()) # show sum of all missing values
-
-    print(heart_df.output.value_counts()) #show value counts in output column
-    
+    print(heart_df.head())  # show 1st 5 cells of dataframe
+    print(heart_df.info())  # show dataset information
+    print(heart_df.isna().sum())  # show sum of missing values in columns
+    print(heart_df.isna().sum().max())  # show sum of all missing values
+    print(heart_df.output.value_counts())  # show value counts in output column
     return heart_df
 
 def visualize_data(df):
 
-    age_chart = plotly.express.histogram(df, x=df['age'], title='Age Chart', nbins=20, text_auto=True)
-    # age_chart.show() #show image
-    age_chart.write_image('data/visual_plots/age_chart.png', engine="kaleido") #save image into directory
+    age = plotly.express.histogram(df, x=df['age'], title='Age Chart', nbins=20, text_auto=True)
+    # age.show()
+    age.write_image('data/visual_plots/age.png', engine="kaleido")
 
+    sex = plotly.express.histogram(df, x=df['sex'], title='Sex Chart', nbins=20, text_auto=True)
+    # sex.show()
+    sex.write_image('data/visual_plots/sex.png', engine="kaleido")
 
-    sex_chart = plotly.express.histogram(df, x=df['sex'], title='Sex Chart', nbins=20, text_auto=True)
-    # sex_chart.show() #show image
-    sex_chart.write_image('data/visual_plots/sex_chart.png', engine="kaleido") #save image into directory
+    cp = plotly.express.histogram(df, x=df['cp'], title='CP Chart', nbins=20, text_auto=True)
+    # cp.show() 
+    cp.write_image('data/visual_plots/cp.png', engine="kaleido")
 
+    trtbps = plotly.express.histogram(df, x=df['trtbps'], title='trtbps Chart', nbins=20, text_auto=True)
+    # trtbps.show()
+    trtbps.write_image('data/visual_plots/trtbps.png', engine="kaleido")
 
-    cp_chart = plotly.express.histogram(df, x=df['cp'], title='CP Chart', nbins=20, text_auto=True)
-    # cp_chart.show() #show image
-    cp_chart.write_image('data/visual_plots/cp_chart.png', engine="kaleido") #save image into directory
+    chol = plotly.express.histogram(df, x=df['chol'], title='chol Chart', nbins=20, text_auto=True)
+    # chol.show()
+    chol.write_image('data/visual_plots/chol.png', engine="kaleido")
 
+    fbs = plotly.express.histogram(df, x=df['fbs'], title='fbs Chart', nbins=20, text_auto=True)
+    # fbs.show()
+    fbs.write_image('data/visual_plots/fbs.png', engine="kaleido")
 
-    trtbps_chart = plotly.express.histogram(df, x=df['trtbps'], title='trtbps Chart', nbins=20, text_auto=True)
-    # trtbps_chart.show() #show image
-    trtbps_chart.write_image('data/visual_plots/trtbps_chart.png', engine="kaleido") #save image into directory
+    restecg = plotly.express.histogram(df, x=df['restecg'], title='restecg Chart', nbins=20, text_auto=True)
+    # restecg.show()
+    restecg.write_image('data/visual_plots/restecg.png', engine="kaleido")
 
+    thalachh = plotly.express.histogram(df, x=df['thalachh'], title='thalachh Chart', nbins=20, text_auto=True)
+    # thalachh.show() 
+    thalachh.write_image('data/visual_plots/thalachh.png', engine="kaleido")
 
-    chol_chart = plotly.express.histogram(df, x=df['chol'], title='chol Chart', nbins=20, text_auto=True)
-    # chol_chart.show() #show image
-    chol_chart.write_image('data/visual_plots/chol_chart.png', engine="kaleido") #save image into directory
+    exng = plotly.express.histogram(df, x=df['exng'], title='exng Chart', nbins=20, text_auto=True)
+    # exng.show()
+    exng.write_image('data/visual_plots/exng.png', engine="kaleido")
 
+    oldpeak = plotly.express.histogram(df, x=df['oldpeak'], title='oldpeak Chart', nbins=20, text_auto=True)
+    # oldpeak.show()
+    oldpeak.write_image('data/visual_plots/oldpeak.png', engine="kaleido")
 
-    fbs_chart = plotly.express.histogram(df, x=df['fbs'], title='fbs Chart', nbins=20, text_auto=True)
-    # fbs_chart.show() #show image
-    fbs_chart.write_image('data/visual_plots/fbs_chart.png', engine="kaleido") #save image into directory
+    slp = plotly.express.histogram(df, x=df['slp'], title='slp Chart', nbins=20, text_auto=True)
+    # slp.show()
+    slp.write_image('data/visual_plots/slp.png', engine="kaleido")
 
+    caa = plotly.express.histogram(df, x=df['caa'], title='caa Chart', nbins=20, text_auto=True)
+    # caa.show() 
+    caa.write_image('data/visual_plots/caa.png', engine="kaleido")
 
-    restecg_chart = plotly.express.histogram(df, x=df['restecg'], title='restecg Chart', nbins=20, text_auto=True)
-    # restecg_chart.show() #show image
-    restecg_chart.write_image('data/visual_plots/restecg_chart.png', engine="kaleido") #save image into directory
+    thall = plotly.express.histogram(df, x=df['thall'], title='thall Chart', nbins=20, text_auto=True)
+    # thall.show()
+    thall.write_image('data/visual_plots/thall.png', engine="kaleido")
 
-
-    thalachh_chart = plotly.express.histogram(df, x=df['thalachh'], title='thalachh Chart', nbins=20, text_auto=True)
-    # thalachh_chart.show() #show image
-    thalachh_chart.write_image('data/visual_plots/thalachh_chart.png', engine="kaleido") #save image into directory
-
-
-    exng_chart = plotly.express.histogram(df, x=df['exng'], title='exng Chart', nbins=20, text_auto=True)
-    # exng_chart.show() #show image
-    exng_chart.write_image('data/visual_plots/exng_chart.png', engine="kaleido") #save image into directory
-
-
-    oldpeak_chart = plotly.express.histogram(df, x=df['oldpeak'], title='oldpeak Chart', nbins=20, text_auto=True)
-    # oldpeak_chart.show() #show image
-    oldpeak_chart.write_image('data/visual_plots/oldpeak_chart.png', engine="kaleido") #save image into directory
-
-
-    slp_chart = plotly.express.histogram(df, x=df['slp'], title='slp Chart', nbins=20, text_auto=True)
-    # slp_chart.show() #show image
-    slp_chart.write_image('data/visual_plots/slp_chart.png', engine="kaleido") #save image into directory
-
-
-    caa_chart = plotly.express.histogram(df, x=df['caa'], title='caa Chart', nbins=20, text_auto=True)
-    # caa_chart.show() #show image
-    caa_chart.write_image('data/visual_plots/caa_chart.png', engine="kaleido") #save image into directory
-
-
-    thall_chart = plotly.express.histogram(df, x=df['thall'], title='thall Chart', nbins=20, text_auto=True)
-    # thall_chart.show() #show image
-    thall_chart.write_image('data/visual_plots/thall_chart.png', engine="kaleido") #save image into directory
-
-
-    output_chart = plotly.express.histogram(df, x=df['output'], title='output Chart', nbins=20, text_auto=True)
-    # output_chart.show() #show image
-    output_chart.write_image('data/visual_plots/output_chart.png', engine="kaleido") #save image into directory
-
-
+    output = plotly.express.histogram(df, x=df['output'], title='output Chart', nbins=20, text_auto=True)
+    # output.show()
+    output.write_image('data/visual_plots/output.png', engine="kaleido")
 
 if __name__ == '__main__':
     new_data = read_data()
