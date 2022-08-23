@@ -6,12 +6,11 @@ def directories(testing: str = "no"):
     if testing == 'no':
         data_path = "data/"
         dataset_path = "data/datasets/"
-        model_output = "data/model_output/"
         visuals_path = "data/visual_plots/"
 
 
 
-        for _ in [data_path, dataset_path, model_output, visuals_path]:
+        for _ in [data_path, dataset_path, visuals_path]:
             if not os.path.exists(_):
                 os.mkdir(_)
     

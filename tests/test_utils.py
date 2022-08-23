@@ -13,7 +13,6 @@ class TestDirectories(unittest.TestCase):
         # self.assertTrue(os.path.exists("test/"))
         self.assertTrue(os.path.exists("data"))
         self.assertTrue(os.path.exists("data/datasets"))
-        self.assertTrue(os.path.exists("data/model_output"))
         self.assertTrue(os.path.exists("data/visual_plots"))
 
     def tearDown(self):
