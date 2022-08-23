@@ -3,8 +3,8 @@ Building, Optimizing, and Deploying ML model using the Heart Attack Prediction D
 
 Link (from Kaggle) to dataset: https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
 
-The first step I did before downloading the dataset was to make the directories using utils.py
+Before downloading the dataset, make directories using utils directory
 
-I've used the command line to download the dataset and unzip the file into the "data" directory using:
+Used the terminal to download the dataset and unzip the file into the directory "data\datasets" using:
 
 kaggle datasets download -d rashikrahmanpritom/heart-attack-analysis-prediction-dataset --unzip -p data\datasets
