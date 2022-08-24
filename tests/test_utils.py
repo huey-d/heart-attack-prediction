@@ -6,7 +6,6 @@ import shutil
 class TestDirectories(unittest.TestCase):
     
     def setUp(self):
-        # self.function = utils.util1.directories()
         pass
 
     def test_make_dirs(self):
@@ -43,4 +42,5 @@ class TestDirectories(unittest.TestCase):
     
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    pass
