@@ -12,7 +12,7 @@ def visualize_data(data_path: str = "data", file_path: str = "raw/heart.csv"):
 
     sex = plotly.express.histogram(df, x=df['sex'], title='Sex Chart', nbins=20, text_auto=True)
     # sex.show()
-    sex.write_image('reports/figures/ex.png', engine="kaleido")
+    sex.write_image('reports/figures/sex.png', engine="kaleido")
 
     cp = plotly.express.histogram(df, x=df['cp'], title='CP Chart', nbins=20, text_auto=True)
     # cp.show() 
