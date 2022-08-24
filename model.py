@@ -34,33 +34,37 @@ param_space = {'eta': hyperopt.hp.loguniform('eta', -9, 0),
               }
 
 
-def read_data(data_path: str = 'data\datasets\heart.csv', scale: bool = True):
+def read_data(data_path: str = 'data\datasets\heart.csv'):
     df = pd.read_csv(data_path)
-
-
-    X = df.drop(columns=['output']).values
+    
+    X = df.drop(columns=['output'], axis=1).values
     y = df['output'].values
-    
 
-    X_train, y_train, X_test, y_test  = sklearn.model_selection.train_test_split(X, y, test_size=0.2)
-    
+    X_train, X_test, y_train, y_test  = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=42)    
+
+    print(X_train.shape)
+    print(y_train.shape)
+    print(X_test.shape)
+    print(y_test.shape)
+    return X_train, X_test, y_train, y_test
+
+
+def classify(X_train: np.ndarray,
+             X_test: np.ndarray,
+             y_train: np.ndarray,
+             y_test: np.ndarray,
+             approach: str='bayes',
+             scale: str = True):
+
+    start = time.time()
+        
     # Normalize data
     if scale:
         scaler = sklearn.preprocessing.MinMaxScaler()
         X_train = scaler.fit_transform(X_train)
+        # encoder = sklearn.preprocessing.LabelEncoder()
+        # y_train = encoder.fit_transform(y_train)
 
-    return X_train, y_train, X_test, y_test
-
-
-def classify(X_train: np.ndarray,
-             y_train: np.ndarray,
-             X_test: np.ndarray,
-             y_test: np.ndarray,
-             approach: str='bayes'):
-
-    start = time.time()
-    
-    
     eval_set = [(X_train, y_train), (X_test, y_test)]
     
     def train_model(params):
@@ -137,8 +141,9 @@ def classify(X_train: np.ndarray,
     
     model_file = pickle.dump(best_model, open(model_path+'xgboost.pkl', 'wb'))
     
-    with open(model_file, 'rb') as f:
+    with open('pickle_model\xgboost.pkl' , 'rb') as f:
         model = pickle.load(f)
+
 
 
 if __name__== '__main__':
