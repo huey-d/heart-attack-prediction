@@ -24,8 +24,8 @@ class TestDirectories(unittest.TestCase):
         src_models = "src/models"
         src_visuals = "src/visualization"
 
-        for _ in [utils_path, data_ext, data_int, data_proc, data_raw, model_path, references_path, reports_path, test_path, src_data, src_features, src_models, src_visuals]:
-            self.assertTrue(os.path.exists(_))
+        for path in [utils_path, data_ext, data_int, data_proc, data_raw, model_path, references_path, reports_path, test_path, src_data, src_features, src_models, src_visuals]:
+            self.assertTrue(os.path.exists(path))
         
     def tearDown(self):
         pass
