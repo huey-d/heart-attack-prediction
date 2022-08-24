@@ -34,30 +34,24 @@ param_space = {'eta': hyperopt.hp.loguniform('eta', -9, 0),
               }
 
 
-def read_data(data_path: str = 'data\datasets\heart.csv'):
-    df = pd.read_csv(data_path)
+def read_data(data_path: str = "data", file_path: str = "raw/heart.csv"):
+    df = pd.read_csv(os.path.join(data_path, file_path))
     
     X = df.drop(columns=['output'], axis=1).values
     y = df['output'].values
 
-    X_train, X_test, y_train, y_test  = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=42)    
-
-    print(X_train.shape)
-    print(y_train.shape)
-    print(X_test.shape)
-    print(y_test.shape)
-    return X_train, X_test, y_train, y_test
+    return X, y
 
 
-def classify(X_train: np.ndarray,
-             X_test: np.ndarray,
-             y_train: np.ndarray,
-             y_test: np.ndarray,
+def classify(X: np.ndarray,
+             y: np.ndarray,
              approach: str='bayes',
              scale: str = True):
 
     start = time.time()
-        
+    
+    X_train, X_test, y_train, y_test  = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=42)
+
     # Normalize data
     if scale:
         scaler = sklearn.preprocessing.MinMaxScaler()
@@ -83,7 +77,6 @@ def classify(X_train: np.ndarray,
             # Make predictions for the classifier
             y_pred = model.predict(X_test)
 
-            y_pred = [round(value) for value in y_pred]
 
             # use sklearn.metrics to log metrics onto mlflow
             b_acc = sklearn.metrics.balanced_accuracy_score(y_test, y_pred)
@@ -132,20 +125,14 @@ def classify(X_train: np.ndarray,
     print("\nModel runtime: {} seconds".format(model_runtime))
 
     best_model = trials.results[np.argmin([r['loss'] for r in trials.results])]['model']
-
     print(best_model)
     
-    model_path = "pickle_model/"
-    if not os.path.exists(model_path):
-       os.makedirs(model_path)
+    final_model_path = "models"
+    model_file = pickle.dump(best_model, open(final_model_path+'xgboost.pkl', 'wb'))
     
-    model_file = pickle.dump(best_model, open(model_path+'xgboost.pkl', 'wb'))
-    
-    with open('pickle_model\xgboost.pkl' , 'rb') as f:
-        model = pickle.load(f)
 
 
 
 if __name__== '__main__':
-    X_train, y_train, X_test, y_test = read_data()
-    classify(X_train, y_train, X_test, y_test)
+    X, y = read_data()
+    classify(X, y)

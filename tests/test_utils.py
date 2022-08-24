@@ -1,5 +1,5 @@
 import unittest
-import utils.util1
+import utils.util
 import os
 import shutil
 
@@ -10,13 +10,17 @@ class TestDirectories(unittest.TestCase):
         pass
 
     def test_make_dirs(self):
-        # self.assertTrue(os.path.exists("test/"))
+        self.assertTrue(os.path.exists("data"))
+        self.assertTrue(os.path.exists("data/datasets"))
+        self.assertTrue(os.path.exists("data/visual_plots"))
+        self.assertTrue(os.path.exists("data"))
+        self.assertTrue(os.path.exists("data/datasets"))
+        self.assertTrue(os.path.exists("data/visual_plots"))
         self.assertTrue(os.path.exists("data"))
         self.assertTrue(os.path.exists("data/datasets"))
         self.assertTrue(os.path.exists("data/visual_plots"))
 
     def tearDown(self):
-        # shutil.rmtree("test/")
         pass
     
 
