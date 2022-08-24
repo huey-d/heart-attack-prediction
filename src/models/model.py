@@ -119,8 +119,8 @@ def classify(X: np.ndarray,
     
     final_model_path = "models/"
     backend_model_path = "backend/"
-    pickle.dump(best_model, open(final_model_path+'xgboost.pkl', 'wb'))
-    pickle.dump(best_model, open(backend_model_path+'xgboost.pkl', 'wb'))
+    pickle.dump(best_model, open(final_model_path+'finalxgboost.pkl', 'wb'))
+    pickle.dump(best_model, open(backend_model_path+'deployxgboost.pkl', 'wb'))
 
 
 
