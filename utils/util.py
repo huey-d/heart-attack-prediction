@@ -16,8 +16,25 @@ def build_project_structure():
     src_features = "src/features"
     src_models = "src/models"
     src_visuals = "src/visualization"
+    frontend_dir = "frontend/"
+    backend_dir = "backend/"
+    
 
-    for path in [utils_path, data_ext, data_int, data_proc, data_raw, model_path, references_path, reports_path, test_path, src_data, src_features, src_models, src_visuals]:
+    for path in [utils_path,
+                 data_ext,
+                 data_int,
+                 data_proc,
+                 data_raw,
+                 model_path,
+                 references_path,
+                 reports_path,
+                 test_path,
+                 src_data,
+                 src_features,
+                 src_models,
+                 src_visuals,
+                 frontend_dir,
+                 backend_dir]:
             if not os.path.exists(path):
                 os.makedirs(path)
 

@@ -56,8 +56,6 @@ def classify(X: np.ndarray,
     if scale:
         scaler = sklearn.preprocessing.MinMaxScaler()
         X_train = scaler.fit_transform(X_train)
-        # encoder = sklearn.preprocessing.LabelEncoder()
-        # y_train = encoder.fit_transform(y_train)
 
     eval_set = [(X_train, y_train), (X_test, y_test)]
     
@@ -69,7 +67,7 @@ def classify(X: np.ndarray,
             
 
             start_time = time.time()
-            model = xgboost.XGBClassifier(**params, objective='binary:logistic', early_stopping_rounds=100, n_jobs=-1)
+            model = xgboost.XGBClassifier(**params, objective='binary:logistic', early_stopping_rounds=200, n_jobs=-1)
             model.fit(X_train, y_train, verbose=True, eval_set=eval_set)
             run_time = time.time() - start_time
             
@@ -99,20 +97,12 @@ def classify(X: np.ndarray,
             return {'status': hyperopt.STATUS_OK, 'loss': -f1, 'model': model}
 
     trials = hyperopt.Trials()
-    if approach == 'bayes':
-        best_params = hyperopt.fmin(fn=train_model,
-                                    space=param_space,
-                                    algo=hyperopt.tpe.suggest,
-                                    max_evals=25,
-                                    trials=trials
-                                    )            
-    else:
-        best_params = hyperopt.fmin(fn=train_model,
-                                    space=param_space,
-                                    algo=hyperopt.rand.suggest,
-                                    max_evals=25,
-                                    trials=trials
-                                    )
+    best_params = hyperopt.fmin(fn=train_model,
+                                space=param_space,
+                                algo=hyperopt.tpe.suggest,
+                                max_evals=25,
+                                trials=trials
+                                )
 
 
     model_runtime = time.time() - start
@@ -128,8 +118,9 @@ def classify(X: np.ndarray,
     print(best_model)
     
     final_model_path = "models/"
-    model_file = pickle.dump(best_model, open(final_model_path+'xgboost.pkl', 'wb'))
-    
+    backend_model_path = "backend/"
+    pickle.dump(best_model, open(final_model_path+'xgboost.pkl', 'wb'))
+    pickle.dump(best_model, open(backend_model_path+'xgboost.pkl', 'wb'))
 
 
 
