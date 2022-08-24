@@ -127,7 +127,7 @@ def classify(X: np.ndarray,
     best_model = trials.results[np.argmin([r['loss'] for r in trials.results])]['model']
     print(best_model)
     
-    final_model_path = "models"
+    final_model_path = "models/"
     model_file = pickle.dump(best_model, open(final_model_path+'xgboost.pkl', 'wb'))
     
 
