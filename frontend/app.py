@@ -24,8 +24,7 @@ def main():
 
     activities = ["About this AI application","Data upload and visualisation","Data preprocessing","Modeling", "Prediction"]
     st.sidebar.title("Navigation")
-	# choices = st.sidebar.radio("", activities)
-
+	# st.sidebar.radio(label= "", options=activities)
 	# sign = False
 	# train_X = pd.DataFrame()
 	# test_X = pd.DataFrame()
