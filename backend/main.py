@@ -1,14 +1,16 @@
 import json
 import pickle
 
-import httpx
 from fastapi import Body, FastAPI
 from fastapi.logger import logger
 from pydantic import BaseModel
+import uvicorn
 
-app = FastAPI()
+import xgboost
 
-# Creating a class for the attributes input to the ML model.
+app = FastAPI(title="Heart Attack API", description="API for Heart Attack Classification")
+
+# Creating class for inputs to the model.
 class HeartAttack(BaseModel):
     age : int
     sex : int
@@ -19,86 +21,74 @@ class HeartAttack(BaseModel):
     restecg : int
     thalachh : int
     exng : int
-    oldpeak : int
+    oldpeak : float
     slp : int
     caa : int
     thall : int
 
 
-# Loading the trained model
-with open("./deployxgboost.pkl", "rb") as f:
+# Loading trained model
+with open('./deploy_xgboost.pkl', "rb") as f:
     loaded_model = pickle.load(f)
 
-# Sending a post request to the “/prediction” route with a request body. 
-# The request body contains the key-value pairs of the water metrics parameters
-# We should expect a JSON response with the potability classified.
+# Sending a post request to the “/prediction” route with a request body.
+# The request body contains the key-value pairs of the parameters
+# We should expect a JSON response with heart attack risk classified.
 
 # Columns are: ['age', 'sex', 'cp', 'trtbps', 'chol', 'fbs', 'restecg', 'thalachh', 'exng', 'oldpeak', 'slp', 'caa', 'thall']
-@app.post('/prediction' )
+@app.post('/prediction')
 def get_risk(data: HeartAttack):
     received = data.dict()
-    age = received['Ph']
-    sex = received['Hardness']
-    age
-# sex
-# cp
-# trtbps
-# chol
-# fbs
-# restecg
-# thalachh
-# exng
-# oldpeak
-# slp
-# caa
-# thall
-#  = received['Solids']
-    Chloramines = received['Chloramines']
-    Sulfate = received['Sulfate']
-    Conductivity = received['Conductivity']
-    Organic_carbon = received['Organic_carbon']
-    Trihalomethanes = received['Trihalomethanes']
-    Turbidity = received['Turbidity']
-
-    pred_name = loaded_model.predict([[ph, Hardness, Solids,
-                                Chloramines, Sulfate, Conductivity, Organic_carbon,
-                                Trihalomethanes,Turbidity]]).tolist()[0]
-    return  pred_name
+    age = received['age']
+    sex = received['sex']
+    cp = received['cp']
+    trtbps = received['trtbps']
+    chol = received['chol']
+    fbs = received['fbs']
+    restecg = received['restecg']
+    thalachh = received['thalachh']
+    exng = received['exng']
+    oldpeak = received['oldpeak']
+    slp = received['slp']
+    caa = received['caa']
+    thall = received['thall']
+    pred_name = loaded_model.predict([[age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall]]).tolist()[0]
+    return  {'Prediction' : pred_name}
     
 
-@app.post('/subscription')
-def subscription(data :dict = Body(...)):
-    #output_data=await data.json()
-    print(data)
+# @app.post('/subscription')
+# def subscription(data :dict = Body(...)):
+#     #output_data=await data.json()
+#     print(data)
 
 
-@app.get("/get_entities/{id}")
-async def get_entities(id:str ):
+# @app.get("/get_entities/{id}")
+# async def get_entities(id:str ):
     
-    url="http://orion.docker:1026/ngsi-ld/v1/entities/" +  id + "?options=keyValues"
+#     url="http://orion.docker:1026/ngsi-ld/v1/entities/" +  id + "?options=keyValues"
 
-    client = httpx.Client()
-    response = client.get(url)
+#     client = httpx.Client()
+#     response = client.get(url)
     
-    logger.info(response.json())
-    return response.json()
+#     logger.info(response.json())
+#     return response.json()
 
-@app.patch("/prediction/{id}/{potability}")
-def notify_prediction(id:str,potability:str):
-    url = "http://orion.docker:1026/ngsi-ld/v1/entities/" + id + "/attrs/Potability"
+# @app.patch("/prediction/{id}/{potability}")
+# def notify_prediction(id:str,potability:str):
+#     url = "http://orion.docker:1026/ngsi-ld/v1/entities/" + id + "/attrs/Potability"
 
-    payload = json.dumps({
-	"value": potability,
-	"type": "Property"
-	})
-    headers = {
-	'Content-Type': 'application/json',
-	'Link': '<http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
-	}
-    client = httpx.Client()
-    response = client.patch(url, headers=headers, data=payload)
+#     payload = json.dumps({
+# 	"value": potability,
+# 	"type": "Property"
+# 	})
+#     headers = {
+# 	'Content-Type': 'application/json',
+# 	'Link': '<http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+# 	}
+#     client = httpx.Client()
+#     response = client.patch(url, headers=headers, data=payload)
 
-    return response.json()
+#     return response.json()
 
 
 # homepage route
