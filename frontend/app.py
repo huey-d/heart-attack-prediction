@@ -6,14 +6,6 @@ import os
 import requests
 import json
 
-# async def fetch(session, url):
-#     try:
-#         async with session.get(url) as response:
-#             result = await response.json()
-#             return result
-#     except Exception:
-#         return {}
-
 
 # ********************************* Start HTML config ****************************************
 
@@ -30,22 +22,12 @@ st.markdown(s, unsafe_allow_html=True)
 
 # ******************************* End HTML configuration ****************************************
 
-# def load_model_and_predict(dir_path: str = 'backend/', model_path: str = 'deploy_xgboost.pkl'):
-# 	with open(os.path.join(dir_path, model_path), "rb") as f:
-# 		loaded_model = pickle.load(f)
-			
-# 	return loaded_model 
-
-# def predict(age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall):
-# 	prediction = model.predict(age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall)
-# 	return prediction
-
 
 def run():
 
 	st.title("Heart Attack Risk Assessment App")
 
-	age = st.number_input("How old are you", 20, 80)
+	age = st.slider("How old are you", 0, 80)
 
 	sex = st.radio('Gender?', ("Male", "Female"))
 	if sex == 'Female':
@@ -124,7 +106,7 @@ def run():
 			'thall': thall}
 
 	if st.button("Predict"):
-		response = requests.post('http://localhost:8000/predict', json=data)
+		response = requests.post('http://fastapi:8000/predict', json=data)
 		prediction = response.text
 		st.success(prediction)
 

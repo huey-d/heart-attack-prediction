@@ -63,3 +63,6 @@ async def get_risk(data: HeartAttack):
         pred_name = 'Lower Risk of Heart Attack'
     
     return pred_name
+
+if __name__ == '__main__':
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, debug=True)
