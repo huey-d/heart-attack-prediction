@@ -2,6 +2,7 @@ build:
   docker:
     web: frontend/Dockerfile
     api: backend/Dockerfile
-run:
-  web: streamlit, run, app.py
-  api: uvicorn, main:app, --host, 0.0.0.0, --port, 8000 , --reload
+
+# run:
+#   web: streamlit, run, app.py
+#   api: uvicorn, main:app, --host, 0.0.0.0, --port, 8000 , --reload
