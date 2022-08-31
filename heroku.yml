@@ -8,4 +8,4 @@ run:
 release:
   image: web
   command:
-    - streamlit, run, app.py migrate up
+    - streamlit run app.py migrate up
