@@ -83,13 +83,13 @@ def run():
 
 	caa = st.slider("Number of major vessels", 0, 4, 1)
 
-	thall = st.radio("Number of major vessels", ["Normal", "Fixed defect", "Reversable Defect"])
-	if thall == "Normal":
-		thall = 0
-	elif thall == "Flat":
+	thall = st.radio("thalassemia Value", ["Normal", "Fixed defect", "Reversable Defect"])
+	if thall == "Fixed defect":
 		thall = 1
-	elif thall == "Upsloping":
+	elif thall == "Normal":
 		thall = 2
+	elif thall == "Reversable Defect":
+		thall = 3
 
 	data = {'age':age,
 			'sex': sex,
