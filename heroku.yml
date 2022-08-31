@@ -13,4 +13,4 @@
 build:
   docker:
     web: docker-compose.yml
-    worker: worker/docker-compose.yml
+    # worker: worker/docker-compose.yml
