@@ -1,14 +1,14 @@
 build:
   docker:
-    web: frontend/Dockerfile
+    web: Dockerfile
     # worker: frontend/Dockerfile
 # run:
   # web: streamlit run app.py
   # worker: uvicorn main:app --host 0.0.0.0 --port 8000  --reload
-release:
-  image: web
-  command:
-    - streamlit run app.py migrate up
+# release:
+#   image: web
+#   command:
+#     - streamlit run app.py migrate up
 
 # build:
 #   docker:
