@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  fastapi:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: fastapi
+    restart: always
+    ports:
+      - 5001:8000
+    networks:
+      - deploy_network
+    container_name: backend
+
+  streamlit:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: streamlit
+    restart: always
+    ports:
+      - "5000:8501"
+    depends_on:
+      - fastapi
+    networks:
+      - deploy_network
+    container_name: frontend
+    labels:
+      kompose.service.type: loadbalancer
+
+networks:
+  deploy_network:
+    driver: bridge
